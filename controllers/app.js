@@ -13,13 +13,17 @@ const register = (req, res) => {
                 });
             })
             .catch(err => {
-                res.status(401).json({ msg: 'You already joined here.' });
+                res.status(200).json({
+                    success: false,
+                    msg: 'You already joined here.'
+                });
             })
+        } else {
+            res.status(200).json({
+                success: false,
+                message: 'Already exists'
+            });
         }
-        res.status(200).json({
-            success: false,
-            message: 'Already exists'
-        });
     })
     .catch(err => {
         res.json(500).json({ err });
