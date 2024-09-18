@@ -24,4 +24,4 @@ const UserSchema = new Schema({
 
 const User = mongooes.model('User', UserSchema);
 
-module.exports = { User };
+module.exports = User;
