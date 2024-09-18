@@ -7,13 +7,19 @@ const register = (req, res) => {
         if (!exist) {
             newUser.save()
             .then(result => {
-                res.status(200)
+                res.status(200).json({
+                    success: true,
+                    message: 'Successful!'
+                });
             })
             .catch(err => {
                 res.status(401).json({ msg: 'You already joined here.' });
             })
         }
-        res.status(400).json({ msg: 'Already exists' });
+        res.status(200).json({
+            success: false,
+            message: 'Already exists'
+        });
     })
     .catch(err => {
         res.json(500).json({ err });
