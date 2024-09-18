@@ -1,6 +1,6 @@
 var User = require('../models/User');
 
-export const register = (req, res) => {
+const register = (req, res) => {
     const newUser = new User({ ...req.body });
 
     User.findOne({ email: req.body.email }).then(exist => {
@@ -20,4 +20,4 @@ export const register = (req, res) => {
     })
 };
 
-export default { register };
+module.exports = { register };
