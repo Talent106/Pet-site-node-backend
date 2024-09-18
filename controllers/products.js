@@ -1,36 +1,32 @@
 var Product = require('../models/Product');
 
-const addProduct = (req, res) => {
-    const newProduct = new Product({ ...req.body });
+const addProduct = async (req, res) => {
 
-    Product.findOne({
-        select: req.body.select,
-        title: req.body.title
-    }).then(exists => {
-        if (!exists) {
-            newProduct.save()
-            .then(results => {
-                res.status(200).json({
-                    success: true,
-                    message: "Successful!"
-                });
-            })
-            .catch(err => {
-                res.status(200).json({
-                    success: false,
-                    message: "Already existed"
-                });
+    try {
+        const newProduct = new Product({ ...req.body });
+    
+        const exist = Product.findOne({
+            select: req.body.select,
+            title: req.body.title
+        });
+    
+        if (!exist) {
+            await newProduct.save()
+            const products = await Product.find();
+            res.status(200).json({
+                success: true,
+                message: "Successful!",
+                data: products
             });
         } else {
             res.status(200).json({
                 success: false,
-                message: 'Already exists'
+                message: "Already Added!"
             });
         }
-    })
-    .catch(err => {
+    } catch (err) {
         res.status(500).json({ err });
-    });
+    }
 }
 
 module.exports = { addProduct };
