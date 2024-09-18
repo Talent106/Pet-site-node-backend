@@ -3,14 +3,14 @@ var Product = require('../models/Product');
 const addProduct = async (req, res) => {
 
     try {
-        const newProduct = new Product({ ...req.body });
-    
-        const exist = Product.findOne({
+        const exist = await Product.findOne({
             select: req.body.select,
             title: req.body.title
         });
     
         if (!exist) {
+            const newProduct = new Product({ ...req.body });
+
             await newProduct.save()
             const products = await Product.find();
             res.status(200).json({
