@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/v1/auth', indexRouter);
+app.use('/v1', indexRouter);
 app.use('/v1/product', productsRouter);
 
 // catch 404 and forward to error handler

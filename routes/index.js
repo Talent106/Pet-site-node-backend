@@ -3,6 +3,7 @@ var router = express.Router();
 var app = require('../controllers/app');
 
 /* GET home page. */
-router.post('/register', app.register);
+router.get('/', app.getData);
+router.post('/auth/register', app.register);
 
 module.exports = router;
